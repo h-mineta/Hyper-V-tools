@@ -24,7 +24,8 @@ $device_id = $display_device.DeviceID -replace "\\", "#"
 $device_id = "\\?\" + $device_id + "#*"
 
 $result_gpu = Get-VMHostPartitionableGpu |
-Where-Object { $_.Name -like $device_id }
+Where-Object { $_.Name -like $device_id } |
+Select-Object -First 1
 
 if (!$result_gpu) {
     Write-output("[ERROR] 指定されたGPUが見つかりません")
